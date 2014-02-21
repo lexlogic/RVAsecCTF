@@ -14,8 +14,7 @@ if(Input::exists()) {
             'password' => Hash::make(Input::get('password'), $salt),
             'salt' => $salt,
             'group' => 1,
-            'email' => Input::get('email'),
-            'pgp_key' => Input::get('pgp')
+            'email' => Input::get('email')
         ));
         Redirect::to('../login/');
     }
@@ -99,14 +98,6 @@ if(Input::exists()) {
                             <i class="entypo-key"></i>
                         </div>
                         <input type="password" class="form-control" name="password_again" id="password_again" placeholder="Confirm Password" autocomplete="off" data-validate="required" data-message-required="Password Confirmation is Required"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-
-                        </div>
-                        <textarea class="form-control" rows="16" name="pgp" placeholder="PGP Key" data-validate="required" data-message-required="Must provide a PGP Key to Score Points"></textarea>
                     </div>
                 </div>
                 <div class="form-group">

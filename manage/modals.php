@@ -8,7 +8,6 @@ if(isset($_GET['userid']) && $_GET['userid'] != '') {
     foreach($getAllUserInfo->results() as $results) {
         $userInfo[] = $results;
     }
-
     foreach($userInfo as $info) { ?>
 
         <div class="col-sm-12 col-md-12">
@@ -38,6 +37,7 @@ if(isset($_GET['userid']) && $_GET['userid'] != '') {
                         <input type="password" class="form-control" name="password_again" id="password_again" data-validate="required" data-message-required="Please Re-Enter the Password" placeholder="Password" />
                     </div>
                     <input type="hidden" name="userid" value="<?php echo escape($info['id']); ?>" />
+                    <input type="hidden" name="token" value="<?php echo escape(Token::generate()); ?>" />
                     <input type="submit" class="btn btn-info btn-flat" name="modifyUser" value="Modify User" />
                     <input type="submit" style="float: right;" class="btn btn-danger btn-flat" name="deleteUser" value="Delete User" onclick="return confirm('Are you sure you want to delete this user?')"/>
                 </form>
@@ -62,17 +62,21 @@ if(Input::exists()) {
         Redirect::to('../manage/');
     }
     if (!empty($_POST['deleteUser'])) {
-        DB::getInstance()->delete('users', array('id', '=', Input::get('userid')));
+        if(Token::check(Input::get('token'))) {
+            DB::getInstance()->delete('users', array('id', '=', Input::get('userid')));
+        }
     }
     if (!empty($_POST['newQuestion'])) {
-        $team = DB::getInstance()->insertAssoc('questions', array(
-            'question' => Input::get('question'),
-            'answer' => Hash::make(Input::get('answer')),
-            'category' => Input::get('category'),
-            'points' => Input::get('points'),
-            'tier' => Input::get('tier')
-        ));
-        Redirect::to('../manage/');
+        if(Token::check(Input::get('token'))) {
+            $team = DB::getInstance()->insertAssoc('questions', array(
+                'question' => Input::get('question'),
+                'answer' => Hash::make(Input::get('answer')),
+                'category' => Input::get('category'),
+                'points' => Input::get('points'),
+                'tier' => Input::get('tier')
+            ));
+            Redirect::to('../manage/');
+        }
     }
 }
 
@@ -122,7 +126,7 @@ if(Input::exists()) {
                             <?php
                             if(!empty($users)) {
                                 foreach($users as $edit) {
-                                    echo '<option value="'.$edit['id'].'">';
+                                    echo '<option value="'.escape($edit['id']).'">';
                                     echo $edit['username'];
                                     echo '</option>';
                                 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 19, 2014 at 12:43 AM
+-- Generation Time: Feb 21, 2014 at 10:28 PM
 -- Server version: 5.6.12-log
 -- PHP Version: 5.4.12
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` text NOT NULL,
   `answer` varchar(64) NOT NULL,
-  `category` varchar(32) NOT NULL,
+  `category` varchar(255) NOT NULL,
   `points` int(11) NOT NULL,
   `tier` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `teams` (
   `flagsLeft` int(5) DEFAULT NULL,
   `points` int(6) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -115,17 +115,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `isLeader` int(1) DEFAULT NULL,
   `password` varchar(64) NOT NULL,
   `salt` varchar(32) NOT NULL,
-  `pgp_key` text,
   `group` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `full_name`, `email`, `team`, `isLeader`, `password`, `salt`, `pgp_key`, `group`) VALUES
-(3, 'root', 'root', 'root@root.com', NULL, NULL, 'ccb61f97bc5941afc2c7d6859ba0b1e7d2e8969a7e041f7e40d06491cc239400', 'taA6lbUx0Ou$ibImhXXjDuenJzW#JXlG', 'here', 1);
+INSERT INTO `users` (`id`, `username`, `full_name`, `email`, `team`, `isLeader`, `password`, `salt`, `group`) VALUES
+(3, 'root', 'root', 'root@root.com', 'Testing', 1, '1a6628337cc7a7600628965afabfc9c62ae8a7bff789a1fc23323691e7f6a5d9', 'Mb@x#wm%I53?UkrtVjRnk54#L$m#&w3H', 2);
 
 -- --------------------------------------------------------
 

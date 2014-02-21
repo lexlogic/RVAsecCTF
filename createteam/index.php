@@ -30,7 +30,6 @@ if($user->isLoggedIn()) {
             Redirect::to('../dashboard/');
         }
     }
-
     $page = new Page;
     $page->setTitle('Create Team');
     $page->startBody();
